@@ -1,0 +1,223 @@
+/* Общие стили */
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f2f2f2;
+  height: 100vh;
+}
+
+.container {
+  width: 1600px;
+  margin: 0 auto;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+/* Шапка */
+.site-header {
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 15px 0;
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  text-decoration: none;
+  color: #333;
+  padding: 5px 15px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.logo:hover {
+  background-color: #f7f7f7;
+  border-color: #999;
+}
+
+.auth-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.auth-button {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  padding: 5px 15px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.auth-button:hover {
+  background-color: #f7f7f7;
+  border-color: #999;
+}
+
+/* Основной layout */
+.main-with-sidebar {
+  display: flex;
+  margin-top: 10px;
+  gap: 20px;
+}
+
+/* Блок с сайдбаром и карточками */
+.sidebar-column {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Сайдбар */
+.sidebar {
+  background: white;
+  border-radius: 6px;
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+}
+
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebar-button {
+  background: white;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  padding: 10px;
+  text-align: left;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.sidebar-button:hover {
+  background-color: #f7f7f7;
+  border-color: #999;
+}
+
+.sidebar-button.active {
+  border-color: #4CAF50;
+  background: #f0fff0;
+}
+
+.sidebar-button.active:hover {
+  background: #e0ffe0;
+}
+
+/* Карточки под сайдбаром */
+.sidebar-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sidebar-card {
+  height: 150px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;    /* Прижимаем контент к низу */
+  align-items: center;         /* Выравниваем по центру горизонтально */
+  padding-bottom: 20px;        /* Отступ снизу */
+  font-weight: bold;
+  position: relative;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-align: center;          /* Центрируем текст */
+}
+
+
+.sidebar-card:hover {
+  background-color: #f7f7f7;
+  border-color: #999;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Основное содержимое */
+.main-content {
+  flex: 1;
+  background: white;
+  border-radius: 6px;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+}
+
+
+
+/* Новые стили для футера */
+.site-footer {
+  background-color: #fff; /* Белый фон */
+  color: #333; /* Черный текст */
+  padding: 40px 0 20px;
+  margin-top: 30px;
+  border-top: 1px solid #e0e0e0; /* Граница сверху как в шапке */
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.footer-column {
+  width: 23%;
+  margin-bottom: 20px;
+}
+
+.footer-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #333; /* Черный заголовок */
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: black; /* Темно-серый для ссылок */
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: #000; /* Черный при наведении */
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid #e0e0e0; /* Серая граница */
+  margin-top: 20px;
+  color: black; /* Серый текст */
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .footer-column {
+    width: 48%;
+  }
+}
