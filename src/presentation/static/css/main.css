@@ -2,7 +2,7 @@ body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
   background-color: #f2f2f2;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .container {
@@ -69,6 +69,7 @@ body {
   display: flex;
   margin-top: 10px;
   gap: 20px;
+  min-height: calc(100vh - 250px);
 }
 
 
@@ -176,7 +177,9 @@ body {
   flex: 1;
   padding: 15px;
   overflow-y: auto;
+  min-height: 400px;
 }
+
 
 
 .site-footer {
@@ -319,7 +322,7 @@ body {
 }
 
 .chat-input:focus {
-  border-color: #4CAF50;
+  border-color: #2AABEE;
 }
 
 .send-button {
@@ -352,4 +355,10 @@ body {
 
 .send-button:hover .send-icon {
   transform: scale(1.0);
+}
+
+
+.page-container {
+  flex: 1;
+  padding-bottom: 40px;
 }

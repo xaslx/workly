@@ -1,0 +1,102 @@
+.registration-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 25px;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s ease;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+.form-control:focus {
+    border-color: #2AABEE;
+    box-shadow: 0 0 0 3px rgba(42, 171, 238, 0.2);
+}
+
+.form-control::placeholder {
+    color: #aaa;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 12px 20px;
+    background-color: #2AABEE;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.submit-button:hover {
+    background-color: #1E90D8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.submit-button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+
+.registration-instructions {
+    margin-bottom: 25px;
+    text-align: center;
+    line-height: 1.6;
+    color: #555;
+}
+
+.registration-instructions p {
+    margin: 0 0 10px;
+}
+
+.telegram-link {
+    color: #2AABEE;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.telegram-link:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    color: #ff3860;
+    font-size: 0.8em;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    text-align: left;
+    padding-left: 20px;
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+}
+
+.login-link a {
+    color: #2AABEE;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}

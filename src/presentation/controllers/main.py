@@ -1,17 +1,23 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, status
 from dishka.integrations.fastapi import inject, FromDishka as Depends
 from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
 
 
 router: APIRouter = APIRouter()
 
 
-@router.get('/')
+@router.get(
+        '/',
+        description='Эндпоинт для шаблона с главной страницей',
+        status_code=status.HTTP_200_OK,
+        name='main:page'
+)
 @inject
 async def main_page(
     request: Request,
     template: Depends[Jinja2Templates],
-):
+) -> HTMLResponse:
     return template.TemplateResponse(
         request=request,
         name='base.html',
