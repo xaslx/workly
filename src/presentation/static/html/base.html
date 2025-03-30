@@ -21,38 +21,52 @@
     </div>
   </header>
 
-  
   <main class="container main-with-sidebar">
-
     <div class="sidebar-column">
-
-        <aside class="sidebar">
-            <div class="sidebar-menu">
-                {% block sidebar_buttons %}
-                    <button class="sidebar-button">Интересные статьи</button>
-                    <button class="sidebar-button">Новости</button>
-                    <button class="sidebar-button">Фрилансеру</button>
-                    <button class="sidebar-button">Заказчику</button>
-                {% endblock %}
-            </div>
-        </aside>
-
-        <div class="sidebar-cards">
-            {% block sidebar_cards %}
-                <div class="sidebar-card">Лучший фрилансер за неделю</div>
-                <div class="sidebar-card">Лучшая статья за неделю</div>
-                <div class="sidebar-card">Статистика</div>
-            {% endblock %}
+      <aside class="sidebar">
+        <div class="sidebar-menu">
+          <button class="sidebar-button">Интересные статьи</button>
+          <button class="sidebar-button">Новости</button>
+          <button class="sidebar-button">Фрилансеру</button>
+          <button class="sidebar-button">Заказчику</button>
         </div>
+      </aside>
+
+      {% block left_sidebar %}
+      <div class="sidebar-cards">
+        <div class="sidebar-card">Лучший фрилансер за неделю</div>
+        <div class="sidebar-card">Лучшая статья за неделю</div>
+        <div class="sidebar-card">Статистика</div>
+      </div>
+      {% endblock %}
     </div>
     
-
-    <div class="main-content">
-        {% block main_content %}{% endblock %}
+    <div class="content-wrapper">
+      <div class="main-content">
+        <div class="content-header">{% block main_content_title %}Новости{% endblock %}</div>
+        <div class="content-body">
+          {% block content %}
+            
+          {% endblock %}
+        </div>
+      </div>
+      
+      <div class="chat-sidebar">
+        <div class="chat-header">Онлайн чат</div>
+        <div class="chat-messages">
+          
+        </div>
+        <div class="chat-input-container">
+          <input type="text" class="chat-input" placeholder="Введите сообщение...">
+          <button class="send-button">
+            <img src="/static/icons/send.png" alt="Отправить" class="send-icon">
+          </button>
+        </div>
+      </div>
     </div>
-</main>
+  </main>
 
-<footer class="site-footer">
+  <footer class="site-footer">
     <div class="container">
       <div class="footer-container">
         <div class="footer-column">
@@ -75,7 +89,6 @@
           <ul class="footer-links">
             <li><a href="#">FAQ</a></li>
             <li><a href="#">Правила</a></li>
-            <li><a href="#">Контакты</a></li>
             <li><a href="#">Поддержка</a></li>
           </ul>
         </div>
@@ -84,9 +97,7 @@
           <h3 class="footer-title">Контакты</h3>
           <ul class="footer-links">
             <li>Email: info@workly.ru</li>
-            <li>
-              <a href="#" style="color: #333;">Telegram: </a>
-            </li>
+            <li><a href="#">Telegram</a></li>
           </ul>
         </div>
       </div>
@@ -96,6 +107,5 @@
       </div>
     </div>
   </footer>
-
 </body>
 </html>

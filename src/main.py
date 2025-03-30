@@ -31,8 +31,8 @@ def create_app() -> FastAPI:
     setup_controllers(app=app)
     fastapi_integration.setup_dishka(container=container, app=app)
     
-    # @app.exception_handler(404)
-    # async def custom_404_handler(request: Request, __) -> HTMLResponse:
-    #     return RedirectResponse('/')
+    @app.exception_handler(404)
+    async def custom_404_handler(request: Request, __) -> HTMLResponse:
+        return RedirectResponse('/')
 
     return app
