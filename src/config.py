@@ -11,5 +11,11 @@ class PostgresConfig(BaseModel):
     database: str = Field(alias='POSTGRES_DB')
 
 
+class RedisConfig(BaseModel):
+    host: str = Field(alias='REDIS_HOST')
+    port: int = Field(alias='REDIS_PORT', default=6379)
+
+
 class Config(BaseModel):
     postgres: PostgresConfig = Field(default_factory=lambda: PostgresConfig(**env))
+    redis: RedisConfig = Field(default_factory=lambda: RedisConfig(**env))
