@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/main.css">
+  <title>Workly - 404</title>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="/" class="logo">Workly</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="error-page">
+      <h1>404</h1>
+      <p>Страница не найдена</p>
+      <a href="/" style="text-decoration: none; color: inherit;"class="notfound-button">На главную</a>
+    </div>
+  </div>
+
+  <style>
+    .error-page {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 70vh;
+      text-align: center;
+    }
+    
+    .error-page h1 {
+      font-size: 5rem;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+    
+    .error-page p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      color: #666;
+    }
+    
+    .notfound-button {
+        background: white;
+        border: 2px solid #ccc;
+        border-radius: 6px;
+        font-size: 15px;
+        padding: 10px 35px;
+        text-align: left;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .notfound-button:hover {
+        background-color: #f7f7f7;
+        border-color: #999;
+    }
+
+    .notfound-button.active:hover {
+    background: #e0ffe0;
+    }
+  </style>
+</body>
+</html>
