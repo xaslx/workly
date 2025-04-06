@@ -1,4 +1,4 @@
-{% extends "base.html" %}  {# Предполагается, что ваш текущий код находится в base.html #}
+{% extends "base.html" %}
 
 {% block link %}
     {{ super() }}
@@ -11,19 +11,41 @@
 
 {% block content %}
 <div class="registration-form">
-    <p>Регистрация проходит через нашего <a target="_blank" href="https://t.me/workly_easy_bot"><span style="color: red;">Телеграм-бота</span></a></p>
-    <p>Отправьте боту команду /id - чтобы получить ваш ID</p>
-    <p>Введите ID в поле ниже, и получите код в боте</p>
+    <div id="initial_instructions">
+        <p>Регистрация проходит через нашего <a target="_blank" href="https://t.me/workly_easy_bot"><span style="color: red;">Телеграм-бота</span></a></p>
+        <p>Отправьте боту команду /id - чтобы получить ваш ID</p>
+        <p>Введите ID в поле ниже, и получите код в боте</p>
+    </div>
+    
+    <div id="code_instruction" style="display: none;">
+        <p>Вам был направлен код в телеграм-боте, введите его в поле ниже</p>
+    </div>
+    
+    <div id="register_instruction" style="display: none;">
+        <p>Завершите регистрацию, заполнив форму ниже</p>
+    </div>
     
     <form id="registrationForm">
-        <div class="form-group">
-            <input type="text" id="telegram_id" name="telegram_id" required class="form-control" placeholder="Введите ваш ID">
+
+        <div class="form-group" id="telegram_id_group">
+            <input type="text" id="telegram_id" name="telegram_id" required class="form-control" 
+                   placeholder="Введите ваш ID">
             <div id="telegram_id_error" class="error-message"></div>
         </div>
         
+
         <div class="form-group" id="code_group" style="display: none;">
-            <input placeholder="Код подтверждения" type="text" id="confirmation_code" name="confirmation_code" class="form-control">
+            <input placeholder="Введите код из Telegram" type="text" id="confirmation_code" name="confirmation_code" class="form-control">
             <div id="code_error" class="error-message"></div>
+        </div>
+        
+
+        <div class="form-group" id="register_data_group" style="display: none;">
+            <input placeholder="Придумайте логин" type="text" id="username" name="username" class="form-control">
+            <div id="username_error" class="error-message"></div>
+            
+            <input placeholder="Ваше имя" type="text" id="name" name="name" class="form-control">
+            <div id="name_error" class="error-message"></div>
         </div>
         
         <button type="button" id="action_button" class="submit-button">Отправить код</button>
@@ -33,4 +55,8 @@
         Уже есть аккаунт? <a href="{{ url_for('login:page') }}">Войти</a>
     </div>
 </div>
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
+    <script src="/static/js/register.js"></script>
 {% endblock %}

@@ -6,6 +6,8 @@
   {% block link %}
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+
   {% endblock %}
   <title>{% block title  %}Workly{% endblock %}</title>
 </head>
@@ -112,4 +114,7 @@
     </div>
   </footer>
 </body>
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+{% endblock %}
 </html>
