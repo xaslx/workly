@@ -5,3 +5,5 @@ venv
 .venv
 node_modules
 .git
+logs.db
+logs_bot.db
