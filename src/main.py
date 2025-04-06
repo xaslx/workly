@@ -7,11 +7,12 @@ from src.presentation.controllers.setup_routers import setup_controllers
 from src.config import Config
 from dishka import AsyncContainer, make_async_container
 from src.ioc import AppProvider
+from src.logger import logger
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-
+    logger.info('Приложение запущено')
     yield
 
 
