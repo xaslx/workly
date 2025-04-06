@@ -8,16 +8,41 @@ class UserEntity(BaseEntity):
     """Пользователь - агрегат в доменной модели"""
     
     telegram_id: int
+    name: str
+    username: str
     balance: Decimal = Decimal('0.00')
     hold_balance: Decimal | None = None
     is_premium: bool = False
     is_available: bool = True
     is_active: bool = True
     rating_avg: float = 0.0
-    rating_count: int = 0
     is_deleted: bool = False
     completed_orders_as_freelancer: int = 0
     completed_orders_as_customer: int = 0
+
+    @classmethod
+    def create_user(
+        cls,
+        telegram_id: int,
+        name: str,
+        username: str,
+
+    ) -> 'UserEntity':
+
+        return cls(
+            telegram_id=telegram_id,
+            name=name,
+            username=username,
+            balance=cls.balance,
+            hold_balance=cls.hold_balance,
+            is_premium=cls.is_premium,
+            is_available=cls.is_available,
+            is_active=cls.is_active,
+            rating_avg=cls.rating_avg,
+            is_deleted=cls.is_deleted,
+            completed_orders_as_freelancer=cls.completed_orders_as_freelancer,
+            completed_orders_as_customer=cls.completed_orders_as_customer,
+        )
 
     def add_completed_order_as_freelancer(self) -> None:
         """Увеличить счетчик успешно выполненных заказов как фрилансер"""
