@@ -66,5 +66,9 @@ class CheckCode:
             return False
         
         logger.info(f'Успешная проверка кода: {code} для пользователя: {telegram_id}')
+
+        await self.redis_cache.delete(key=f'{telegram_id}:code')
+        logger.info(f'Код из кэша для пользователя: {telegram_id} удален')
+
         return True
         

@@ -9,7 +9,7 @@ from dataclasses import dataclass
 class JWTService(ABC):
     
     @abstractmethod
-    def create_access_token(self, data: dict, **kwargs) -> tuple[str, int]:
+    def create_access_token(self, data: dict, exp: int | None = 10) -> tuple[str, int]:
         ...
 
     @abstractmethod
@@ -29,8 +29,9 @@ class JWTServiceImpl(JWTService):
         return jwt.encode(to_encode, self.config.jwt.secret_key, self.config.jwt.algorithm), expire
 
     def valid_token(self, token: str) -> dict | None:
+
         try:
-            payload = jwt.decode(token,self.config.jwt.secret_key, self.config.jwt.algorithm)
+            payload = jwt.decode(token, self.config.jwt.secret_key, self.config.jwt.algorithm)
         except ExpiredSignatureError:
             return None
         except JWTError:
