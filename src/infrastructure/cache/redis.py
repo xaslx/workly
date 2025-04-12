@@ -20,17 +20,22 @@ class RedisCache:
             **kwargs
         )
 
-    def get(self, key: str) -> Any | None:
+    async def get(self, key: str) -> Any | None:
 
-        return self._client.get(key)
+        return await self._client.get(key)
 
-    def set(self, key: str, value: Any, **kwargs) -> bool:
+    async def set(self, key: str, value: Any, **kwargs) -> bool:
 
-        return self._client.set(key, value, **kwargs)
+        return await self._client.set(key, value, **kwargs)
 
-    def set_with_ttl(self, key: str, value: Any, ttl_seconds: int) -> bool:
+    async def set_with_ttl(self, key: str, value: Any, ttl_seconds: int) -> bool:
 
-        return self._client.setex(key, ttl_seconds, value)
+        return await self._client.setex(key, ttl_seconds, value)
+    
+    async def delete(self, key: str) -> int:
+        
+        return await self._client.delete(key)
+
 
     @property
     def client(self) -> Redis:
