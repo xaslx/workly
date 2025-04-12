@@ -1,0 +1,53 @@
+    {% extends "base.html" %}
+
+    {% block link %}
+        {{ super() }}
+        <link rel="stylesheet" href="/static/css/register.css">
+    {% endblock %}
+
+    {% block title %}Workly | Вход{% endblock %}
+
+    {% block main_content_title %}Вход{% endblock %}
+
+    {% block content %}
+    <div class="registration-form">
+        <div id="initial_instructions">
+            <p>Вход проходит через нашего <a target="_blank" href="https://t.me/workly_easy_bot"><span style="color: red;">Телеграм-бота</span></a></p>
+            <p>Отправьте боту команду /id - чтобы получить ваш ID</p>
+            <p>Введите ID в поле ниже, и получите код в боте</p>
+        </div>
+        
+        <div id="code_instruction" style="display: none;">
+            <p>Вам был направлен код в телеграм-боте, введите его в поле ниже</p>
+        </div>
+        
+        <form id="loginForm">
+            <div class="form-group" id="telegram_id_group">
+                <div id="telegram_id_hint" class="hint-message" style="color: gray; cursor: pointer; display: none; padding-bottom: 5px;">
+                    Последний использованный ID: <span id="last_telegram_id"></span>
+                </div>
+                <input type="text" id="telegram_id" name="telegram_id" required class="form-control" 
+                       placeholder="Введите ваш Telegram ID">
+                
+                <div id="telegram_id_error" class="error-message" style="color: red; display: none;"></div>
+            </div>
+            
+            <div class="form-group" id="code_group" style="display: none;">
+                <input placeholder="Введите код из Telegram" type="text" id="confirmation_code" name="confirmation_code" class="form-control">
+                <div id="code_error" class="error-message" style="color: red; display: none;"></div>
+            </div>
+            
+            <button type="button" id="action_button" class="submit-button">Отправить код</button>
+        </form>
+        
+        <div class="login-link">
+            Нет аккаунта? <a href="{{ url_for('register:page') }}">Зарегистрироваться</a><br><br>
+            <a href="">Проблема со входом</a>
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block scripts %}
+        {{ super() }}
+        <script src="/static/js/login.js"></script>
+    {% endblock %}

@@ -100,3 +100,14 @@
 .login-link a:hover {
     text-decoration: underline;
 }
+
+.hint-message {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.hint-message:hover {
+    text-decoration: underline;
+    color: darkgray;
+    cursor: pointer;
+}

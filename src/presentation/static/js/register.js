@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const codeError = document.getElementById('code_error');
     const usernameError = document.getElementById('username_error');
     const nameError = document.getElementById('name_error');
-    
+
     let currentStep = 1;
     let isProcessing = false;
     let registrationCompleted = false;
@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (errorElement.textContent) {
             setTimeout(() => {
                 errorElement.textContent = '';
+                errorElement.style.display = 'none';
             }, 3000);
         }
     }
@@ -72,6 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 if (!telegramId) {
                     telegramIdError.textContent = 'Пожалуйста, введите ваш Telegram ID';
+                    telegramIdError.style.display = 'block';
                     setErrorTimeout(telegramIdError);
                     isProcessing = false;
                     return;
@@ -79,6 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 if (!/^\d+$/.test(telegramId)) {
                     telegramIdError.textContent = 'Telegram ID должен содержать только цифры';
+                    telegramIdError.style.display = 'block';
                     setErrorTimeout(telegramIdError);
                     isProcessing = false;
                     return;
@@ -87,7 +90,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 const response = await fetch('/auth/send-code', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({telegram_id: telegramId})
+                    body: JSON.stringify({
+                        telegram_id: telegramId,
+                        auth_type: 'REGISTER'
+                    })
                 });
                 
                 if (response.ok) {
@@ -97,10 +103,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else if (response.status === 409) {
                     const errorData = await response.json();
                     telegramIdError.textContent = errorData.detail || 'Этот Telegram ID уже зарегистрирован';
+                    telegramIdError.style.display = 'block';
                     setErrorTimeout(telegramIdError);
                 } else {
                     const errorData = await response.json();
                     telegramIdError.textContent = errorData.detail || 'Ошибка при отправке кода';
+                    telegramIdError.style.display = 'block';
                     setErrorTimeout(telegramIdError);
                 }
             } else if (currentStep === 2) {
@@ -109,6 +117,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 if (!code) {
                     codeError.textContent = 'Пожалуйста, введите код подтверждения';
+                    codeError.style.display = 'block';
+                    setErrorTimeout(codeError);
+                    isProcessing = false;
+                    return;
+                }
+
+                if (!/^\d+$/.test(code)) {
+                    codeError.textContent = 'Код подтверждения должен содержать только цифры';
+                    codeError.style.display = 'block';
                     setErrorTimeout(codeError);
                     isProcessing = false;
                     return;
@@ -124,18 +141,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 
                 if (response.ok) {
-                    const result = await response.json();
-                    if (result !== null && result !== undefined) {
-                        currentStep = 3;
-                        updateUIForStep(3);
-                        codeError.textContent = '';
-                    } else {
-                        codeError.textContent = 'Неверный код подтверждения';
-                        setErrorTimeout(codeError);
-                    }
+                    currentStep = 3;
+                    updateUIForStep(3);
+                    codeError.textContent = '';
                 } else {
                     const errorData = await response.json();
-                    codeError.textContent = errorData.detail || 'Ошибка при проверке кода';
+                    codeError.textContent = errorData.detail || 'Неверный код подтверждения';
+                    codeError.style.display = 'block';
                     setErrorTimeout(codeError);
                 }
             } else if (currentStep === 3) {
@@ -145,6 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 if (!username) {
                     usernameError.textContent = 'Пожалуйста, придумайте логин';
+                    usernameError.style.display = 'block';
                     setErrorTimeout(usernameError);
                     isProcessing = false;
                     return;
@@ -152,6 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 if (!name) {
                     nameError.textContent = 'Пожалуйста, введите ваше имя';
+                    nameError.style.display = 'block';
                     setErrorTimeout(nameError);
                     isProcessing = false;
                     return;
@@ -174,15 +188,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     notyf.success('Регистрация успешна! Теперь можно войти.');
                     
                     setTimeout(() => {
-                        window.location.href = '/login';
+                        window.location.href = '/auth/login';
                     }, 3000);
                 } else {
                     const errorData = await response.json();
                     if (errorData.detail.includes('username')) {
                         usernameError.textContent = errorData.detail;
+                        usernameError.style.display = 'block';
                         setErrorTimeout(usernameError);
                     } else {
                         nameError.textContent = errorData.detail || 'Ошибка при регистрации';
+                        nameError.style.display = 'block';
                         setErrorTimeout(nameError);
                     }
                 }
