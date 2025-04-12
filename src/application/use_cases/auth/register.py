@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from src.infrastructure.cache.redis import RedisCache
 from src.domain.user.exception import UserAlreadyExistsException, UsernameLengthException
 from src.application.dto.user.register import UserRegisterDTO
 from src.infrastructure.repositories.user.base import BaseUserRepository
@@ -11,8 +12,9 @@ from src.infrastructure.broker.rabbitmq.publisher import publish
 @dataclass
 class RegisterUserUseCase:
     user_repository: BaseUserRepository
+    redis_cache: RedisCache
 
-    async def execute(self, new_user: UserRegisterDTO):
+    async def execute(self, new_user: UserRegisterDTO) -> UserEntity:
         
         user = await self.user_repository.get_user_by_username(username=new_user.username)
         logger.info(f'Поиск пользователя в базе по username: {new_user.username}')
@@ -31,10 +33,13 @@ class RegisterUserUseCase:
         )
         
         model: User = User.from_entity(entity=new_user)
-        await self.user_repository.add_user(model=model)
-
+        user: UserEntity = await self.user_repository.add_user(model=model)
         logger.info(f'Новый пользователь: {new_user.username} добавлен в базу данных')
 
         await publish(chat_id=new_user.telegram_id, text=f'Вы успешно зарегистрировались на сервисе Workly и привязали свой Телеграм.')
-
         logger.info(f'Пользователю: {new_user.telegram_id} направлено уведомление в Телеграм о успешной регистрации')
+
+        await self.redis_cache.delete(key=f'{user.telegram_id}:code')
+        logger.info(f'Код из кэша для пользователя: {user.telegram_id} удален')
+
+        return user
