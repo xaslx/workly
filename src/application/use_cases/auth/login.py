@@ -16,6 +16,6 @@ class LoginUserUseCase:
         token: str | None = None
 
         if res:
-            token, _ = self.jwt_service.create_access_token(data={'sub': telegram_id})
+            token, _ = self.jwt_service.create_access_token(data={'sub': str(telegram_id)})
             logger.info(f'Токен получен: {token}')
             return token

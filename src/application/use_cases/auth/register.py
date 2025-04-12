@@ -39,7 +39,4 @@ class RegisterUserUseCase:
         await publish(chat_id=new_user.telegram_id, text=f'Вы успешно зарегистрировались на сервисе Workly и привязали свой Телеграм.')
         logger.info(f'Пользователю: {new_user.telegram_id} направлено уведомление в Телеграм о успешной регистрации')
 
-        await self.redis_cache.delete(key=f'{user.telegram_id}:code')
-        logger.info(f'Код из кэша для пользователя: {user.telegram_id} удален')
-
         return user
