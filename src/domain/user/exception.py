@@ -7,7 +7,7 @@ class UserAlreadyExistsException(DomainErrorException):
     detail = 'Такой пользователь уже существует'
 
 class UserNotFoundException(DomainErrorException):
-    status_code = status.HTTP_409_CONFLICT
+    status_code = status.HTTP_404_NOT_FOUND
     detail = 'Пользователь не найден'
 
 class NotAccessErrorException(DomainErrorException):
