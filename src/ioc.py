@@ -2,6 +2,7 @@ from dishka import Provider, Scope, provide, from_context
 from fastapi import Request
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 from typing import AsyncIterable
+from src.application.use_cases.auth.login import LoginUserUseCase
 from src.domain.user.entity import UserEntity
 from src.infrastructure.repositories.user.base import BaseUserRepository
 from src.infrastructure.repositories.user.sqlalchemy import SQLAlchemyUserRepository
@@ -9,8 +10,8 @@ from src.config import Config
 from src.infrastructure.database.postgresql import new_session_maker
 from fastapi.templating import Jinja2Templates
 from src.infrastructure.cache.redis import RedisCache
-from src.application.use_cases.user.register import RegisterUserUseCase
-from src.application.use_cases.code.code import CheckCode, SendCode
+from src.application.use_cases.auth.register import RegisterUserUseCase
+from src.application.services.code import CheckCode, SendCode
 from src.application.services.auth import BaseAuthService, AuthServiceImpl
 from src.application.services.jwt import JWTService, JWTServiceImpl
 
@@ -62,10 +63,12 @@ class AppProvider(Provider):
     async def get_register_user_use_case(
         self,
         user_repository: BaseUserRepository,
+        redis_cache: RedisCache,
     ) -> RegisterUserUseCase:
         
         return RegisterUserUseCase(
             user_repository=user_repository,
+            redis_cache=redis_cache,
         )
     
     @provide(scope=Scope.REQUEST)
@@ -79,6 +82,7 @@ class AppProvider(Provider):
             redis_cache=redis_cache,
             user_repository=user_repository,
         )
+    
     
     @provide(scope=Scope.REQUEST)
     async def get_check_code_use_case(
@@ -111,6 +115,19 @@ class AppProvider(Provider):
             user_repository=user_repository,
             jwt_service=jwt_service,
 
+        )
+    
+    @provide(scope=Scope.REQUEST)
+    async def get_login_user_use_case(
+        self,
+        jwt_service: JWTService,
+        check_code: CheckCode,
+
+    ) -> LoginUserUseCase:
+        
+        return LoginUserUseCase(
+            jwt_service=jwt_service,
+            check_code=check_code,
         )
     
 
