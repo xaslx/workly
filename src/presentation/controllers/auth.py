@@ -120,4 +120,16 @@ async def login_user(
 ) -> None:
     
     token: str = await use_case.execute(telegram_id=login_schema.telegram_id, code=login_schema.confirmation_code)
-    response.set_cookie(key='user_access_token', value=token, max_age=10, httponly=True)
+    response.set_cookie(key='user_access_token', value=token, httponly=True)
+
+
+@router.post(
+    '/logout',
+    description='Эндпоинт для выхода',
+    status_code=status.HTTP_200_OK,
+)
+async def logout_user(
+    response: Response,
+) -> None:
+    
+    response.delete_cookie(key='user_access_token')
