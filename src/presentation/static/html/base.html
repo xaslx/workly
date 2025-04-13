@@ -17,7 +17,7 @@
       <div class="header-inner">
         <a href="/" class="logo">Workly</a>
         
-        {% if user is not none %}
+        {% if user %}
         <div class="user-nav">
           <div class="notification-icon nav-icon">
             <i class="fas fa-bell"></i>
@@ -93,12 +93,20 @@
           <div class="chat-messages">
             
           </div>
+          {% if user %}
           <div class="chat-input-container">
             <input type="text" class="chat-input" placeholder="Введите сообщение...">
             <button class="send-button">
               <img src="/static/icons/send.png" alt="Отправить" class="send-icon">
             </button>
           </div>
+          {% else %}
+          <div class="chat-input-container">
+          <div class="chat-auth-message">
+            <p style="padding: 0px 10px;">Чтобы отправлять сообщения в чате, <a href="{{ url_for('login:page') }}">войдите</a> в систему.</p>
+          </div>
+          </div>
+          {% endif %}
         </div>
       </div>
     </main>
