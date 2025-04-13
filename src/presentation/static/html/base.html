@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/main.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   {% endblock %}
   <title>{% block title  %}Workly{% endblock %}</title>
 </head>
@@ -16,11 +16,43 @@
     <div class="container">
       <div class="header-inner">
         <a href="/" class="logo">Workly</a>
+        
+        {% if user is not none %}
+        <div class="user-nav">
+          <div class="notification-icon nav-icon">
+            <i class="fas fa-bell"></i>
+            <span class="notification-dot"></span>
+          </div>
+          <div class="chat-icon nav-icon">
+            <i class="fas fa-comment-dots"></i>
+            <span class="chat-dot"></span>
+          </div>
+          <div class="user-profile">
+            <span class="username">{{ user.username }}</span>
+            <div class="avatar-container">
+              <img src="{{ user.avatar_url or '/static/images/default-avatar.png' }}" alt="Аватар" class="user-avatar">
+            </div>
+            <div class="dropdown-menu" id="userDropdown">
+              <a href="/profile" class="dropdown-item">
+                <i class="fas fa-user" style="margin-right: 8px;"></i> Профиль
+              </a>
+              <a href="/balance" class="dropdown-item">
+                <i class="fas fa-wallet" style="margin-right: 8px;"></i> Баланс
+              </a>
+              <div class="dropdown-item logout" id="logoutButton">
+                <i class="fas fa-sign-out-alt" style="margin-right: 8px;"></i> Выход
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+        {% else %}
         <div class="auth-links">
           <a href="{{url_for('register:page')}}" class="auth-button">Регистрация</a>
           <span class="separator">|</span>
           <a href="{{url_for('login:page')}}" class="auth-button">Вход</a>
         </div>
+        {% endif %}
       </div>
     </div>
   </header>
@@ -115,6 +147,7 @@
   </footer>
 </body>
 {% block scripts %}
-<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+  <script src="/static/js/main.js"></script>
 {% endblock %}
 </html>
