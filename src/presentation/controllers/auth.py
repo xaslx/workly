@@ -9,7 +9,7 @@ from src.presentation.schemas.code.code import LoginUserWithCode, SendCodeSchema
 from src.application.services.code import SendCode, CheckCode
 from src.application.dto.user.register import UserRegisterDTO
 from src.presentation.schemas.user.register import RegisterUserSchema
-
+from src.logger import logger
 
 
 router: APIRouter = APIRouter()
@@ -128,8 +128,11 @@ async def login_user(
     description='Эндпоинт для выхода',
     status_code=status.HTTP_200_OK,
 )
+@inject
 async def logout_user(
     response: Response,
+    user: Depends[UserEntity],
 ) -> None:
     
     response.delete_cookie(key='user_access_token')
+    logger.info(f'Пользователь: {user.username} вышел')

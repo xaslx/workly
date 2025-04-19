@@ -257,7 +257,7 @@ a.sidebar-button {
   border: 1px solid #e0e0e0;
   display: flex;
   flex-direction: column;
-  height: 500px;
+  height: 540px;
 }
 
 .chat-header {
@@ -268,12 +268,15 @@ a.sidebar-button {
 }
 
 .chat-messages {
-  flex: 1;
-  padding: 15px;
+  padding: 12px;
   overflow-y: auto;
+  height: calc(100% - 60px);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
+  flex-grow: 1;
+  min-height: 0;
+  overflow-anchor: none;
 }
 
 .chat-messages::-webkit-scrollbar {
@@ -294,18 +297,115 @@ a.sidebar-button {
   background: #555;
 }
 
-.message {
-  padding: 8px 12px;
-  border-radius: 6px;
-  background: #f0f0f0;
-  max-width: 80%;
-  word-wrap: break-word;
-}
+
 
 .message.own {
   align-self: flex-end;
   background: #4CAF50;
   color: white;
+} 
+.message {
+  max-width: 75%;
+  padding: 0;
+  border-radius: 12px;
+  position: relative;
+}
+
+.message-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+  padding: 0 12px;
+  position: relative;
+}
+.message-actions {
+  display: flex;
+  gap: 6px;
+  margin-left: 8px;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  color: #a0a0a0;
+  cursor: pointer;
+  font-size: 0.8em;
+  padding: 2px;
+  transition: color 0.2s;
+}
+
+.action-btn:hover {
+  color: #555;
+}
+
+.delete-btn:hover {
+  color: #ff4444;
+}
+
+.mute-btn:hover {
+  color: #ff9900;
+}
+
+.message-time {
+  color: #a0a0a0;
+  font-size: 0.75em;
+  font-weight: 400;
+}
+
+.message-username {
+  font-weight: 600;
+  font-size: 0.9em;
+  color: #555;
+}
+
+.message-content {
+  padding: 10px 14px;
+  border-radius: 12px;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+
+.message:not(.my-message):not(.admin-message) .message-content {
+  background: #f0f2f5;
+  border-top-left-radius: 4px;
+}
+
+
+.my-message {
+  align-self: flex-end;
+}
+
+.my-message .message-meta {
+  justify-content: flex-end;
+}
+
+.my-message .message-content {
+  background-color: #dcf8c6;
+  color: black;
+  border-top-right-radius: 4px;
+}
+
+.my-message .message-username {
+  color: #007bff;
+}
+
+
+.admin-message .message-meta {
+  padding-left: 0;
+}
+
+.admin-message .message-username {
+  color: #d32f2f;
+  font-weight: 700;
+}
+
+.admin-message .message-content {
+  background: #ffebee;
+  color: #d32f2f;
+  border-left: 3px solid #d32f2f;
+  border-top-left-radius: 4px;
 }
 
 .chat-input-container {

@@ -18,6 +18,7 @@ class User(Base):
     hold_balance: Mapped[Numeric | None] = mapped_column(Numeric(10, 2), default=None, nullable=True)
     telegram_id: Mapped[int] = mapped_column(unique=True)
     name: Mapped[str]
+    role: Mapped[str] = mapped_column(default='user')
     username: Mapped[str] = mapped_column(unique=True)
     rating_avg: Mapped[float] = mapped_column(default=0.0)
     rating_count: Mapped[int] = mapped_column(default=0)
@@ -48,6 +49,7 @@ class User(Base):
             is_deleted=self.is_deleted,
             completed_orders_as_freelancer=self.completed_orders_as_freelancer,
             completed_orders_as_customer=self.completed_orders_as_customer,
+            role=self.role,
         )
 
     @classmethod
@@ -69,4 +71,5 @@ class User(Base):
             is_deleted=entity.is_deleted,
             completed_orders_as_freelancer=entity.completed_orders_as_freelancer,
             completed_orders_as_customer=entity.completed_orders_as_customer,
+            role=entity.role,
         )

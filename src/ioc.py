@@ -14,6 +14,10 @@ from src.application.use_cases.auth.register import RegisterUserUseCase
 from src.application.services.code import CheckCode, SendCode
 from src.application.services.auth import BaseAuthService, AuthServiceImpl
 from src.application.services.jwt import JWTService, JWTServiceImpl
+from src.application.use_cases.chat.save_message import SaveMessageUseCase
+from src.infrastructure.repositories.chat.base import BaseChatRepository
+from src.infrastructure.repositories.chat.sqlalchemy import SQLAlchemyChatRepository
+from src.domain.chat.entity import ChatMessagesEntity
 
 
 class AppProvider(Provider):
@@ -55,6 +59,16 @@ class AppProvider(Provider):
     ) -> BaseUserRepository:
         
         return SQLAlchemyUserRepository(
+            _session=session,
+        )
+    
+    @provide(scope=Scope.REQUEST)
+    async def get_chat_repository(
+        self,
+        session: AsyncSession,
+    ) -> BaseChatRepository:
+        
+        return SQLAlchemyChatRepository(
             _session=session,
         )
 
@@ -109,11 +123,13 @@ class AppProvider(Provider):
         self,
         user_repository: BaseUserRepository,
         jwt_service: JWTService,
+        redis_cache: RedisCache,
     ) -> BaseAuthService:
         
         return AuthServiceImpl(
             user_repository=user_repository,
             jwt_service=jwt_service,
+            redis_cache=redis_cache,
 
         )
     
@@ -130,6 +146,13 @@ class AppProvider(Provider):
             check_code=check_code,
         )
     
+    @provide(scope=Scope.REQUEST)
+    async def get_save_message_use_case(
+        self,
+        chat_repository: BaseChatRepository,
+    ) -> SaveMessageUseCase:
+        
+        return SaveMessageUseCase(chat_repository=chat_repository)
 
     #current user
     @provide(scope=Scope.REQUEST)
@@ -148,8 +171,16 @@ class AppProvider(Provider):
         auth_service: BaseAuthService,
         token: str,
     ) -> UserEntity:
-        
+
         if not token:
             return None
         
         return await auth_service.get_current_user(token=token)
+    
+    @provide(scope=Scope.REQUEST)
+    async def get_all_chat_messages(
+        self,
+        chat_repository: BaseChatRepository,
+    ) -> list[ChatMessagesEntity]:
+        
+        return await chat_repository.get_all_messages()

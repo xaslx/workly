@@ -90,8 +90,29 @@
         
         <div class="chat-sidebar">
           <div class="chat-header">Чат</div>
-          <div class="chat-messages">
-            
+          <div class="chat-messages" id="chat-messages-container">
+            {% for message in chat_messages %}
+              <div class="message {% if message.username == user.username %}my-message{% elif message.username == 'admin' %}admin-message{% endif %}" data-message-id="{{ message.id }}">
+                <div class="message-meta">
+                  <span class="message-time">{{ message.created_at.strftime('%H:%M') }}</span>
+                  <span class="message-username">
+                    {% if message.username == user.username %}Вы{% else %}{{ message.username }}{% endif %}
+                  </span>
+                  
+                  {% if user.role in ['admin', 'moderator'] and message.username != user.username %}
+                  <div class="message-actions">
+                    <button class="action-btn mute-btn" title="Заглушить пользователя">
+                      <i class="fas fa-volume-mute"></i>
+                    </button>
+                    <button class="action-btn delete-btn" title="Удалить сообщение">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </div>
+                  {% endif %}
+                </div>
+                <div class="message-content">{{ message.text }}</div>
+              </div>
+            {% endfor %}
           </div>
           {% if user %}
           <div class="chat-input-container">

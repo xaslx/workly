@@ -3,8 +3,9 @@ from logging.config import fileConfig
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from src.infrastructure.database.models.base import Base #noqa
-from src.infrastructure.database.models.user import User
-from src.infrastructure.database.models.review import Review
+from src.infrastructure.database.models.user import User #noqa
+from src.infrastructure.database.models.chat import ChatMessages #noqa
+from src.infrastructure.database.models.review import Review #noqa
 from alembic import context
 import os
 

@@ -17,6 +17,7 @@ class UserEntity(BaseEntity):
     is_active: bool = True
     rating_avg: float = 0.0
     is_deleted: bool = False
+    role: str = 'user'
     completed_orders_as_freelancer: int = 0
     completed_orders_as_customer: int = 0
 
@@ -39,6 +40,7 @@ class UserEntity(BaseEntity):
             is_available=cls.is_available,
             is_active=cls.is_active,
             rating_avg=cls.rating_avg,
+            role=cls.role,
             is_deleted=cls.is_deleted,
             completed_orders_as_freelancer=cls.completed_orders_as_freelancer,
             completed_orders_as_customer=cls.completed_orders_as_customer,
